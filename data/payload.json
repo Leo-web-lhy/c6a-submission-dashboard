@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "snapshot": "2026-11-23",
+    "generated_at": "2026-11-23T19:50:01",
+    "student_id": "2023108610260",
+    "sources": [
+      "list-challenges",
+      "list-my-submissions"
+    ],
+    "note": "null task_state is preserved as an empty value in payload.submissions[].state; the dashboard renders it as 未回填 instead of substituting status."
+  },
+  "challenges": [
+    {
+      "id": "ch-20260904104535-14aac163",
+      "code": "T0",
+      "title": "T0 发布流程测试（请忽略）",
+      "deadline": "2026-09-06T23:59",
+      "req": "README.md",
+      "test": true
+    },
+    {
+      "id": "ch-20260717031407-ez6fae",
+      "code": "C3",
+      "title": "C3 群内高质量参与",
+      "deadline": "2026-12-31T23:59",
+      "req": "*AI日志*,*AAR*,*反思*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031336-pxzwy0",
+      "code": "C1",
+      "title": "C1 课程资料获取与翻译",
+      "deadline": "2026-12-31T23:59",
+      "req": "README.md,*AI日志*,*AAR*,*拿来说明*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031343-8ot0ji",
+      "code": "C2",
+      "title": "C2 AI for Math 论文",
+      "deadline": "2026-12-31T23:59",
+      "req": "paper.tex,references.bib,*AI日志*,*AAR*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031424-4cdgor",
+      "code": "C4",
+      "title": "C4 技能分享与传播",
+      "deadline": "2026-12-31T23:59",
+      "req": "*skill说明*,*.skill,*教学说明*,*demo*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031601-4cwlrx",
+      "code": "C10",
+      "title": "C10 Build Your Own Agent（构建你的长期智能体 / 第二大脑）",
+      "deadline": "2026-12-31T23:59",
+      "req": "AGENT.md,*architecture*,*AAR*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031519-qqqx60",
+      "code": "C6",
+      "title": "C6 Web Application",
+      "deadline": "2026-12-31T23:59",
+      "req": "*app链接*,*demo*,*repo链接*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031536-sfz852",
+      "code": "C7",
+      "title": "C7 内容传播",
+      "deadline": "2026-12-31T23:59",
+      "req": "*文章标题*,*数据截图*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031544-7vw0rn",
+      "code": "C8",
+      "title": "C8 Real-World Project Execution（真实项目落地）",
+      "deadline": "2026-12-31T23:59",
+      "req": "*proposal*,*AAR_W*,*AI日志*,*拿来说明*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031432-5jvqje",
+      "code": "C4A",
+      "title": "C4A 技能提交自动评审",
+      "deadline": "2026-12-31T23:59",
+      "req": "*方案设计*,*skill-evaluator*,*评审报告*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031553-t2892g",
+      "code": "C9",
+      "title": "C9 Self-Initiated Project（自驱项目）",
+      "deadline": "2026-12-31T23:59",
+      "req": "*proposal*,*AAR_W*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031415-0vi5d1",
+      "code": "C3C",
+      "title": "C3C 双人协作与技能迁移",
+      "deadline": "2026-12-31T23:59",
+      "req": "*协作记录*,*联合成果*,*AI日志*,*AAR*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031352-tlg70p",
+      "code": "C2A",
+      "title": "C2A / C9：衡量 AGI 的认知能力",
+      "deadline": "2026-12-31T23:59",
+      "req": "*proposal*,*benchmark*,*AI日志*,*AAR*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031440-bp05rs",
+      "code": "C4B",
+      "title": "C4B 公众号文章生成技能",
+      "deadline": "2026-12-31T23:59",
+      "req": "*wechat-publisher*,*文章链接*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031528-w43gy7",
+      "code": "C6A",
+      "title": "C6A 提交数据仪表盘",
+      "deadline": "2026-12-31T23:59",
+      "req": "*仪表盘*,*demo*,*数据*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031447-k82c4m",
+      "code": "C4C",
+      "title": "C4C 作业自动求解与排版",
+      "deadline": "2026-12-31T23:59",
+      "req": "*方案设计*,*homework-solver*,*output*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031455-uzqs9k",
+      "code": "C4D",
+      "title": "C4D 本地大模型 Agent 技能",
+      "deadline": "2026-12-31T23:59",
+      "req": "*Agent技能*,*demo*,*AI日志*,*AAR*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031609-rnur5a",
+      "code": "C10H",
+      "title": "C10H 安装并驾驭 Hermes Agent",
+      "deadline": "2026-12-31T23:59",
+      "req": "*安装记录*,*配置说明*,*demo*,*AI日志*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031359-b8wyg0",
+      "code": "C2G",
+      "title": "C2G 参数高尔夫 —— 极限约束下的语言模型训练",
+      "deadline": "2026-12-31T23:59",
+      "req": "*方案草案*,*方案设计*,*AI日志*,*AAR*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031503-ihozqu",
+      "code": "C5",
+      "title": "C5 GitHub Repository",
+      "deadline": "2026-12-31T23:59",
+      "req": "README.md,*repo链接*,*AI日志*,*拿来说明*",
+      "test": false
+    },
+    {
+      "id": "ch-20260717031511-x5c6t1",
+      "code": "C5A",
+      "title": "C5A GitHub 入门与仓库理解",
+      "deadline": "2026-12-31T23:59",
+      "req": "*仓库分析*,README.md,*AI日志*",
+      "test": false
+    }
+  ],
+  "submissions": [
+    {
+      "code": "C2",
+      "cid": "ch-20260717031343-8ot0ji",
+      "sid": "sub-20260929073041-401d5bf7",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-09-29",
+      "week": "2026-09-28",
+      "repo": "https://github.com/Leo-web-lhy/c2-ai-for-math-paper"
+    },
+    {
+      "code": "C4",
+      "cid": "ch-20260717031424-4cdgor",
+      "sid": "sub-20261004052131-f92b0e33",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-10-04",
+      "week": "2026-09-28",
+      "repo": "https://github.com/Leo-web-lhy/c4-skill-sharing"
+    },
+    {
+      "code": "C2G",
+      "cid": "ch-20260717031359-b8wyg0",
+      "sid": "sub-20261119025200-3d85d3d7",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-19",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c2g-param-golf"
+    },
+    {
+      "code": "C1",
+      "cid": "ch-20260717031336-pxzwy0",
+      "sid": "sub-20260928160844-fc35af04",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-09-28",
+      "week": "2026-09-28",
+      "repo": "https://github.com/Leo-web-lhy/c1-stanford-vibe-coding"
+    },
+    {
+      "code": "C5",
+      "cid": "ch-20260717031503-ihozqu",
+      "sid": "sub-20261119060623-0c5f53d0",
+      "status": "needs_revision",
+      "state": "",
+      "day": "2026-11-19",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c5-github-repository"
+    },
+    {
+      "code": "C9",
+      "cid": "ch-20260717031553-t2892g",
+      "sid": "sub-20261119151014-5daeb781",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-19",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c9-tabledoctor"
+    },
+    {
+      "code": "C4B",
+      "cid": "ch-20260717031440-bp05rs",
+      "sid": "sub-20261121115714-b2b91f45",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-21",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c4b-wechat-publisher"
+    },
+    {
+      "code": "C8",
+      "cid": "ch-20260717031544-7vw0rn",
+      "sid": "sub-20261119145225-e95d9a66",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-19",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c8-subkit"
+    },
+    {
+      "code": "C2A",
+      "cid": "ch-20260717031352-tlg70p",
+      "sid": "sub-20261107131943-b64341d8",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-07",
+      "week": "2026-11-02",
+      "repo": "https://github.com/Leo-web-lhy/c2a-agi-cognitive-benchmark"
+    },
+    {
+      "code": "C4A",
+      "cid": "ch-20260717031432-5jvqje",
+      "sid": "sub-20261119154909-4a4530f9",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-19",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c4a-skill-evaluator"
+    },
+    {
+      "code": "C6",
+      "cid": "ch-20260717031519-qqqx60",
+      "sid": "sub-20261119123046-ea23c20c",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-19",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c6-promptlab"
+    },
+    {
+      "code": "C10",
+      "cid": "ch-20260717031601-4cwlrx",
+      "sid": "sub-20261123091622-1cb6d999",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-23",
+      "week": "2026-11-23",
+      "repo": "https://github.com/Leo-web-lhy/c10-long-term-agent"
+    },
+    {
+      "code": "C4D",
+      "cid": "ch-20260717031455-uzqs9k",
+      "sid": "sub-20261123073525-c5192132",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-23",
+      "week": "2026-11-23",
+      "repo": "https://github.com/Leo-web-lhy/c4d-local-agent-skills"
+    },
+    {
+      "code": "C7",
+      "cid": "ch-20260717031536-sfz852",
+      "sid": "sub-20261119133145-95d12e1a",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-19",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c7-content-publishing"
+    },
+    {
+      "code": "C4C",
+      "cid": "ch-20260717031447-k82c4m",
+      "sid": "sub-20261122131554-28724711",
+      "status": "needs_revision",
+      "state": "",
+      "day": "2026-11-22",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c4c-homework-solver"
+    },
+    {
+      "code": "C5A",
+      "cid": "ch-20260717031511-x5c6t1",
+      "sid": "sub-20261118144216-fe8632be",
+      "status": "checked",
+      "state": "pending_teacher_review",
+      "day": "2026-11-18",
+      "week": "2026-11-16",
+      "repo": "https://github.com/Leo-web-lhy/c5a-github-repo-understanding"
+    }
+  ]
+}

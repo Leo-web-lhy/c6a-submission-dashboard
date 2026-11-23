@@ -1,0 +1,168 @@
+{
+  "snapshot_date": "2026-11-23",
+  "total_challenges": 21,
+  "ignored_test_challenges": 1,
+  "active_challenges": 20,
+  "submitted_challenges": 16,
+  "coverage_pct": 80.0,
+  "not_submitted_codes": [
+    "C3",
+    "C3C",
+    "C6A",
+    "C10H"
+  ],
+  "not_submitted_titles": [
+    "C3 群内高质量参与",
+    "C3C 双人协作与技能迁移",
+    "C6A 提交数据仪表盘",
+    "C10H 安装并驾驭 Hermes Agent"
+  ],
+  "submission_records": 16,
+  "distinct_challenges_in_records": 16,
+  "records_per_challenge": 1.0,
+  "status_distribution": {
+    "checked": 14,
+    "needs_revision": 2
+  },
+  "task_state_distribution": {
+    "pending_teacher_review": 14,
+    "(null)": 2
+  },
+  "pending_teacher_review": 14,
+  "teacher_review_completed": 0,
+  "needs_revision": 2,
+  "oldest_pending_age_days": 56,
+  "pending_queue": [
+    {
+      "code": "C1",
+      "submission_id": "sub-20260928160844-fc35af04",
+      "submitted_date": "2026-09-28",
+      "age_days": 56
+    },
+    {
+      "code": "C2",
+      "submission_id": "sub-20260929073041-401d5bf7",
+      "submitted_date": "2026-09-29",
+      "age_days": 55
+    },
+    {
+      "code": "C4",
+      "submission_id": "sub-20261004052131-f92b0e33",
+      "submitted_date": "2026-10-04",
+      "age_days": 50
+    },
+    {
+      "code": "C2A",
+      "submission_id": "sub-20261107131943-b64341d8",
+      "submitted_date": "2026-11-07",
+      "age_days": 16
+    },
+    {
+      "code": "C5A",
+      "submission_id": "sub-20261118144216-fe8632be",
+      "submitted_date": "2026-11-18",
+      "age_days": 5
+    },
+    {
+      "code": "C2G",
+      "submission_id": "sub-20261119025200-3d85d3d7",
+      "submitted_date": "2026-11-19",
+      "age_days": 4
+    },
+    {
+      "code": "C9",
+      "submission_id": "sub-20261119151014-5daeb781",
+      "submitted_date": "2026-11-19",
+      "age_days": 4
+    },
+    {
+      "code": "C8",
+      "submission_id": "sub-20261119145225-e95d9a66",
+      "submitted_date": "2026-11-19",
+      "age_days": 4
+    },
+    {
+      "code": "C4A",
+      "submission_id": "sub-20261119154909-4a4530f9",
+      "submitted_date": "2026-11-19",
+      "age_days": 4
+    },
+    {
+      "code": "C6",
+      "submission_id": "sub-20261119123046-ea23c20c",
+      "submitted_date": "2026-11-19",
+      "age_days": 4
+    },
+    {
+      "code": "C7",
+      "submission_id": "sub-20261119133145-95d12e1a",
+      "submitted_date": "2026-11-19",
+      "age_days": 4
+    },
+    {
+      "code": "C4B",
+      "submission_id": "sub-20261121115714-b2b91f45",
+      "submitted_date": "2026-11-21",
+      "age_days": 2
+    },
+    {
+      "code": "C10",
+      "submission_id": "sub-20261123091622-1cb6d999",
+      "submitted_date": "2026-11-23",
+      "age_days": 0
+    },
+    {
+      "code": "C4D",
+      "submission_id": "sub-20261123073525-c5192132",
+      "submitted_date": "2026-11-23",
+      "age_days": 0
+    }
+  ],
+  "weekly_buckets": [
+    {
+      "week_start": "2026-09-28",
+      "count": 3,
+      "codes": [
+        "C1",
+        "C2",
+        "C4"
+      ]
+    },
+    {
+      "week_start": "2026-11-02",
+      "count": 1,
+      "codes": [
+        "C2A"
+      ]
+    },
+    {
+      "week_start": "2026-11-16",
+      "count": 10,
+      "codes": [
+        "C2G",
+        "C4A",
+        "C4B",
+        "C4C",
+        "C5",
+        "C5A",
+        "C6",
+        "C7",
+        "C8",
+        "C9"
+      ]
+    },
+    {
+      "week_start": "2026-11-23",
+      "count": 2,
+      "codes": [
+        "C10",
+        "C4D"
+      ]
+    }
+  ],
+  "busiest_day": "2026-11-19",
+  "busiest_day_count": 7,
+  "last_six_days_count": 12,
+  "nearest_deadline": "2026-12-31",
+  "deadline_remaining_days": 38
+}

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C6A 提交数据仪表盘</title>
+<style>
+:root{
+  --bg:#0f1420; --panel:#171e2e; --panel2:#1e2739;
+  --line:#2b3648; --txt:#e6ecf7; --dim:#93a2bd; --accent:#4c8dff;
+  --ok:#2fbf71; --warn:#f0a63a; --bad:#ef5f5f; --info:#6ea8fe;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#0c1120,#0f1420 40%,#121a2a);
+  color:#e6ecf7;font:14px/1.6 "Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header h1{margin:0 0 6px;font-size:24px;letter-spacing:.3px}
+header .sub{color:#93a2bd;font-size:13px}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;
+  border:1px solid #2b3648;background:#171e2e;color:#93a2bd;margin-left:8px}
+.badge.on{color:#2fbf71;border-color:#2fbf7155;background:#2fbf7115}
+h2{font-size:15px;margin:0 0 12px;color:#c7d3e8;font-weight:600;letter-spacing:.4px}
+.card{background:#171e2e;border:1px solid #2b3648;border-radius:12px;padding:18px}
+.grid{display:grid;gap:14px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(168px,1fr));margin:22px 0 18px}
+.kpi{background:#171e2e;border:1px solid #2b3648;border-radius:12px;padding:14px 15px;position:relative;overflow:hidden}
+.kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#4c8dff}
+.kpi.ok:before{background:#2fbf71}.kpi.warn:before{background:#f0a63a}
+.kpi.bad:before{background:#ef5f5f}.kpi.dim2:before{background:#93a2bd}
+.kpi .lab{font-size:12px;color:#93a2bd;margin-bottom:6px}
+.kpi .val{font-size:26px;font-weight:700;letter-spacing:-.5px}
+.kpi .val small{font-size:13px;font-weight:500;color:#93a2bd;margin-left:3px}
+.kpi .note{font-size:11px;color:#7d8aa3;margin-top:4px}
+.two{grid-template-columns:1.05fr .95fr;margin-bottom:14px}
+.three{grid-template-columns:repeat(3,1fr);margin-bottom:14px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.btn{background:#1e2739;border:1px solid #2b3648;color:#c7d3e8;padding:6px 13px;border-radius:8px;
+  font-size:13px;cursor:pointer;transition:.15s}
+.btn:hover{border-color:#4c8dff88;color:#fff}
+.btn.active{background:#4c8dff22;border-color:#4c8dff;color:#fff}
+.spacer{flex:1}
+.seg{display:inline-flex;border:1px solid #2b3648;border-radius:8px;overflow:hidden}
+.seg button{background:transparent;border:0;color:#93a2bd;padding:6px 12px;font-size:12px;cursor:pointer}
+.seg button.on{background:#4c8dff22;color:#fff}
+.bar-row{display:grid;grid-template-columns:52px 1fr 42px;gap:10px;align-items:center;margin:7px 0}
+.bar-lab{font-size:12px;color:#93a2bd;text-align:right}
+.bar-track{background:#121a2a;border-radius:6px;height:22px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#4c8dff,#6ea8fe);transition:width .5s}
+.bar-fill.ok{background:linear-gradient(90deg,#2fbf71,#4fd68f)}
+.bar-fill.warn{background:linear-gradient(90deg,#f0a63a,#ffc46b)}
+.bar-fill.bad{background:linear-gradient(90deg,#ef5f5f,#ff8f8f)}
+.bar-val{font-size:12px;color:#c7d3e8;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:#93a2bd;font-weight:600;font-size:12px;padding:8px 10px;
+  border-bottom:1px solid #2b3648;position:sticky;top:0;background:#171e2e;cursor:pointer;user-select:none}
+th:hover{color:#fff}
+td{padding:8px 10px;border-bottom:1px solid #1f2838;vertical-align:top}
+tbody tr:hover{background:#1b2334}
+.pill{display:inline-block;padding:1px 9px;border-radius:999px;font-size:11px;border:1px solid transparent}
+.pill.ok{color:#2fbf71;background:#2fbf7115;border-color:#2fbf7140}
+.pill.bad{color:#ef5f5f;background:#ef5f5f15;border-color:#ef5f5f40}
+.pill.none{color:#7d8aa3;background:#93a2bd12;border-color:#93a2bd30}
+.pill.test{color:#f0a63a;background:#f0a63a15;border-color:#f0a63a40}
+.mono{font-family:Consolas,monospace;font-size:12px;color:#93a2bd}
+.ins{display:grid;gap:12px}
+.ins-item{background:#1a2233;border:1px solid #2b3648;border-left:3px solid #4c8dff;border-radius:10px;padding:13px 15px}
+.ins-item h3{margin:0 0 5px;font-size:13.5px;color:#e6ecf7}
+.ins-item p{margin:0;font-size:12.5px;color:#a7b4cc}
+.ins-item .ev{display:block;margin-top:7px;font-size:11.5px;color:#7d8aa3;font-family:Consolas,monospace}
+.ins-item.w{border-left-color:#f0a63a}
+.alert{background:#f0a63a12;border:1px solid #f0a63a40;border-radius:10px;padding:13px 15px;
+  font-size:12.5px;color:#e8d3ae;margin-top:14px}
+.alert b{color:#ffc46b}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#93a2bd;margin-top:10px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+.hbar{display:flex;align-items:center;gap:6px;margin:6px 0}
+.hbar .nm{width:46px;font-size:12px;color:#c7d3e8;font-family:Consolas,monospace}
+.hbar .tr{flex:1;background:#121a2a;border-radius:4px;height:16px;overflow:hidden}
+.hbar .fl{height:100%;border-radius:4px}
+.hbar .vv{width:52px;font-size:11.5px;color:#93a2bd;text-align:right;font-variant-numeric:tabular-nums}
+.hbar:hover .nm{color:#fff}
+footer{margin-top:26px;color:#7d8aa3;font-size:11.5px;line-height:1.7;border-top:1px solid #2b3648;padding-top:14px}
+@media(max-width:960px){.kpis{grid-template-columns:repeat(3,1fr)}.two,.three{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#111}.card,.kpi{background:#fff;border-color:#ccc}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>C6A 提交数据仪表盘 <span class="badge on">数据可重算</span><span class="badge" id="snapBadge"></span></h1>
+  <div class="sub">口径：学生账号 <span class="mono">2023108610260</span> 的平台真实记录 · 数据源 <span class="mono">list-challenges</span> / <span class="mono">list-my-submissions</span> · 全部指标由 <span class="mono">scripts/build_dataset.py</span> 从原始导出重算</div>
+</header>
+
+<div class="toolbar" style="margin-top:18px">
+  <div class="seg" id="scopeSeg">
+    <button data-scope="active" class="on">有效挑战（排除测试）</button>
+    <button data-scope="all">含测试挑战</button>
+  </div>
+  <div class="spacer"></div>
+  <span class="mono" id="stamp"></span>
+</div>
+
+<div class="grid kpis" id="kpis"></div>
+
+<div class="grid two">
+  <div class="card">
+    <h2>提交状态分布（每条挑战取最新一条提交）</h2>
+    <div id="statusChart"></div>
+    <div class="legend">
+      <span><i style="background:#2fbf71"></i>checked · 待终审</span>
+      <span><i style="background:#ef5f5f"></i>needs_revision · 需返修</span>
+      <span><i style="background:#93a2bd"></i>未提交</span>
+    </div>
+  </div>
+  <div class="card">
+    <h2>每周提交量（周一起算）</h2>
+    <div id="weekChart"></div>
+    <div class="legend"><span id="weekNote"></span></div>
+  </div>
+</div>
+
+<div class="grid two">
+  <div class="card">
+    <h2>待终审队列年龄（天，按提交日到快照日计算）</h2>
+    <div id="ageChart"></div>
+  </div>
+  <div class="card">
+    <h2>核心洞察</h2>
+    <div class="ins" id="insights"></div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:14px">
+  <div class="toolbar" style="margin-bottom:10px">
+    <h2 style="margin:0">挑战清单与提交对照</h2>
+    <div class="spacer"></div>
+    <div class="seg" id="filterSeg">
+      <button data-f="all" class="on">全部</button>
+      <button data-f="submitted">已提交</button>
+      <button data-f="missing">未提交</button>
+      <button data-f="revision">需返修</button>
+    </div>
+  </div>
+  <div style="max-height:420px;overflow:auto;border:1px solid #1f2838;border-radius:8px">
+    <table id="tbl">
+      <thead><tr>
+        <th data-sort="code">挑战</th>
+        <th data-sort="title">标题</th>
+        <th data-sort="status">提交状态</th>
+        <th data-sort="state">任务状态</th>
+        <th data-sort="day">提交日期</th>
+        <th data-sort="deadline">截止</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="alert" id="caliberAlert"></div>
+</div>
+
+<footer>
+  <div><b>数据边界（如实声明）</b>：本仪表盘只使用学生账号自身可见的 API 返回，无法读取其他同学的提交，因此<b>不做全班数据</b>，也不虚构任何班级统计。</div>
+  <div style="margin-top:6px">重算方式：<span class="mono">python scripts/build_dataset.py --src ..\.scratch --out data</span> → <span class="mono">python scripts/render_dashboard.py</span> → <span class="mono">python scripts/verify_metrics.py</span></div>
+  <div style="margin-top:6px">本页面为单文件自包含（内联 CSS/JS/数据），断网双击即可打开，无外部依赖。</div>
+</footer>
+</div>
+<script>
+/*__DATA__*/
+const S = DATA.submissions, C = DATA.challenges, SNAP = DATA.meta.snapshot;
+const el = id => document.getElementById(id);
+let scope = "active", filter = "all", sortKey = "code", sortDir = 1;
+
+const DAY = 86400000;
+const days = (a, b) => Math.round((new Date(b + "T00:00:00") - new Date(a + "T00:00:00")) / DAY);
+const inScope = c => scope === "all" ? true : !c.test;
+const activeChals = () => C.filter(inScope);
+const subSet = () => new Set(activeChals().map(c => c.id));
+const subs = () => { const st = subSet(); return S.filter(s => st.has(s.cid)); };
+const pct = (a, b) => b ? (100 * a / b) : 0;
+const esc = t => String(t).replace(/[&<>]/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[m]));
+
+function kpi(cls, lab, val, unit, note) {
+  return `<div class="kpi ${cls}"><div class="lab">${lab}</div>
+    <div class="val">${val}<small>${unit || ""}</small></div><div class="note">${note}</div></div>`;
+}
+
+function renderKpis() {
+  const ch = activeChals(), ss = subs();
+  const checked = ss.filter(s => s.status === "checked").length;
+  const rev = ss.filter(s => s.status === "needs_revision").length;
+  const done = ss.filter(s => s.status === "completed").length;
+  const pend = ss.filter(s => s.status === "checked").map(s => days(s.day, SNAP));
+  const oldest = pend.length ? Math.max(...pend) : 0;
+  const oldCode = ss.filter(s => s.status === "checked").sort((a, b) => (a.day > b.day ? 1 : -1))[0];
+  el("kpis").innerHTML =
+    kpi("", "有效挑战", ch.length, "个", `全部 ${C.length} 个，含测试 ${C.length - ch.length} 个`) +
+    kpi("ok", "提交覆盖率", pct(ss.length, ch.length).toFixed(1), "%", `${ss.length}/${ch.length} 个挑战有提交`) +
+    kpi("", "提交记录", ss.length, "条", "每挑战仅保留最新一条") +
+    kpi("warn", "待终审", checked, "条", "status=checked") +
+    kpi("bad", "需返修", rev, "条", "status=needs_revision") +
+    kpi(oldest > 30 ? "bad" : "dim2", "终审完成", done, "条", "status=completed") +
+    kpi("warn", "最老待审", oldest, "天", oldCode ? `${oldCode.code} 于 ${oldCode.day}` : "无");
+  el("stamp").textContent = "快照日 " + SNAP;
+  el("snapBadge").textContent = "快照 " + SNAP;
+}
+
+function renderStatus() {
+  const ch = activeChals(), ss = subs(), n = ch.length;
+  const rows = [
+    { k: "checked", n: ss.filter(s => s.status === "checked").length, c: "ok", t: "checked 待终审" },
+    { k: "rev", n: ss.filter(s => s.status === "needs_revision").length, c: "bad", t: "needs_revision 需返修" },
+    { k: "miss", n: n - ss.length, c: "", t: "未提交" }
+  ];
+  el("statusChart").innerHTML = rows.map(r => `
+    <div class="bar-row" title="${r.t}：${r.n} 个挑战（${pct(r.n, n).toFixed(1)}%）">
+      <div class="bar-lab">${r.t.split(" ")[0]}</div>
+      <div class="bar-track"><div class="bar-fill ${r.c}" style="width:${pct(r.n, n)}%"></div></div>
+      <div class="bar-val">${r.n}</div>
+    </div>`).join("") +
+    `<div class="note" style="margin-top:10px">合计 ${n} 个有效挑战 = 待终审 ${rows[0].n} + 需返修 ${rows[1].n} + 未提交 ${rows[2].n}</div>`;
+}
+
+function renderWeeks() {
+  const ss = subs(), w = {};
+  ss.forEach(s => { if (s.week) w[s.week] = (w[s.week] || 0) + 1; });
+  const keys = Object.keys(w).sort();
+  const max = Math.max(1, ...keys.map(k => w[k]));
+  const H = 130;
+  el("weekChart").innerHTML = `<div style="display:flex;align-items:flex-end;gap:18px;height:${H + 34}px;padding-top:8px">
+    ${keys.map(k => `<div style="flex:1;text-align:center" title="周 ${k}：${w[k]} 条">
+      <div style="height:${H}px;display:flex;align-items:flex-end;justify-content:center">
+        <div style="width:70%;max-width:64px;height:${(w[k] / max * H).toFixed(0)}px;border-radius:6px 6px 0 0;
+          background:linear-gradient(180deg,#6ea8fe,#4c8dff)"></div>
+      </div>
+      <div style="font-size:11.5px;color:#93a2bd;margin-top:6px">${w[k]} 条</div>
+    </div>`).join("")}
+  </div><div style="display:flex;gap:18px">${keys.map(k => `<div style="flex:1;text-align:center;font-size:10.5px;color:#7d8aa3;font-family:Consolas,monospace">${k.slice(5)}</div>`).join("")}</div>`;
+  const busy = ss.reduce((a, s) => { a[s.day] = (a[s.day] || 0) + 1; return a; }, {});
+  const top = Object.entries(busy).sort((a, b) => b[1] - a[1])[0] || ["—", 0];
+  el("weekNote").innerHTML = `峰值日 <b style="color:#c7d3e8">${top[0]}</b> 提交 ${top[1]} 条 · 近六日（≥2026-11-18）${ss.filter(s => s.day >= "2026-11-18").length} 条 / 共 ${ss.length} 条`;
+}
+
+function renderAge() {
+  const p = subs().filter(s => s.status === "checked")
+    .map(s => ({ code: s.code, day: s.day, d: days(s.day, SNAP) }))
+    .sort((a, b) => b.d - a.d);
+  const max = Math.max(1, ...p.map(x => x.d));
+  el("ageChart").innerHTML = `<div style="max-height:250px;overflow:auto;padding-right:6px">` +
+    p.map(x => `<div class="hbar" title="${x.code} 提交于 ${x.day}，已等待 ${x.d} 天">
+      <div class="nm">${x.code}</div>
+      <div class="tr"><div class="fl" style="width:${pct(x.d, max)}%;background:${x.d > 30 ? "#ef5f5f" : x.d > 14 ? "#f0a63a" : "#4c8dff"}"></div></div>
+      <div class="vv">${x.d} 天</div></div>`).join("") + `</div>
+    <div class="note" style="margin-top:8px">共 ${p.length} 条待终审，最长 ${p[0] ? p[0].d : 0} 天（${p[0] ? p[0].code : "—"}）</div>`;
+}
+
+function render() { renderKpis(); renderStatus(); renderWeeks(); renderAge(); renderInsights(); renderTable(); }
+function renderInsights() {
+  const ss = subs(), ch = activeChals();
+  const checked = ss.filter(s => s.status === "checked");
+  const rev = ss.filter(s => s.status === "needs_revision");
+  const done = ss.filter(s => s.status === "completed").length;
+  const oldest = checked.slice().sort((a, b) => (a.day > b.day ? 1 : -1))[0];
+  const oldDays = oldest ? days(oldest.day, SNAP) : 0;
+  const near6 = ss.filter(s => s.day >= "2026-11-18").length;
+  const distinct = new Set(ss.map(s => s.cid)).size;
+  const items = [
+    { w: false, h: "瓶颈在终审吞吐，不在学生产出",
+      p: `提交覆盖率已达 ${pct(ss.length, ch.length).toFixed(1)}%，但终审完成为 ${done} 条，${checked.length} 条 checked 全部停在待终审${oldest ? `，最老一条（${oldest.code}）已等待 ${oldDays} 天` : ""}。只盯「通过率」会把系统瓶颈误算成学生能力问题。`,
+      e: `evidence: status=checked × ${checked.length} / completed × ${done} / oldest=${oldest ? oldest.code + " " + oldest.day : "—"}` },
+    { w: true, h: "提交呈批量冲刺，风险集中爆发",
+      p: `近六日（≥2026-11-18）提交 ${near6} 条，占全部 ${ss.length} 条的 ${pct(near6, ss.length).toFixed(0)}%；单日峰值集中在少数几天。批量提交时任何口径错误都会被成批复制，C5 与 C4C 的返修正落在同一窗口。`,
+      e: `evidence: last6=${near6}/${ss.length} · weeks=${Object.keys(ss.reduce((a, s) => (a[s.week] = 1, a), {})).length}` },
+    { w: true, h: "返修源自「提交口径」，不是能力不足",
+      p: `${rev.length} 条 needs_revision：${rev.map(s => s.code).join("、") || "无"}。两者都不是做不出来，而是交付物命名/结构没命中平台校验口径——这类问题可以靠提交前预检拦住，属于流程缺陷。`,
+      e: `evidence: needs_revision=${rev.map(s => s.code + ":" + s.sid).join(", ") || "none"}` },
+    { w: false, h: "接口口径坑：返修次数会被系统性低估",
+      p: `list-my-submissions 返回 ${ss.length} 条记录，对应 ${distinct} 个不同挑战——每个挑战只留最新一条。C4C 实际提交 3 版、C5 多版，接口里各只剩 1 条。若用它算「提交次数/返修率」，结果必然偏低，必须用 get-task 逐条追溯。`,
+      e: `evidence: records=${ss.length} distinct_challenges=${distinct} → 1.00 条/挑战` }
+  ];
+  el("insights").innerHTML = items.map(i =>
+    `<div class="ins-item ${i.w ? "w" : ""}"><h3>${i.h}</h3><p>${i.p}<span class="ev">${i.e}</span></p></div>`).join("");
+}
+
+function rows() {
+  const map = {}; subs().forEach(s => map[s.cid] = s);
+  let out = activeChals().map(c => {
+    const s = map[c.id];
+    return { code: c.code, title: c.title, status: s ? s.status : "none",
+      state: s ? (s.state || "") : "",
+      day: s ? s.day : "", deadline: (c.deadline || "").slice(0, 10), test: c.test };
+  });
+  if (filter === "submitted") out = out.filter(r => r.status !== "none");
+  if (filter === "missing") out = out.filter(r => r.status === "none");
+  if (filter === "revision") out = out.filter(r => r.status === "needs_revision");
+  const key = sortKey === "status" ? "status" : sortKey;
+  out.sort((a, b) => {
+    const x = a[key] || "", y = b[key] || "";
+    return (x > y ? 1 : x < y ? -1 : 0) * sortDir;
+  });
+  return out;
+}
+
+function pill(st) {
+  if (st === "checked") return `<span class="pill ok">checked · 待终审</span>`;
+  if (st === "needs_revision") return `<span class="pill bad">needs_revision</span>`;
+  if (st === "completed") return `<span class="pill ok">completed</span>`;
+  return `<span class="pill none">未提交</span>`;
+}
+
+// task_state is a server field. When the platform returns null we render
+// 未回填 instead of substituting status — inventing it would hide the gap.
+function stateCell(x) {
+  if (x.status === "none") return `<span class="pill none">—</span>`;
+  if (!x.state) return `<span class="pill bad">未回填</span>`;
+  return `<span class="pill ok">${esc(x.state)}</span>`;
+}
+
+function renderTable() {
+  const t = document.querySelector("#tbl tbody");
+  const r = rows();
+  t.innerHTML = r.map(x => `<tr>
+    <td><b class="mono" style="color:#c7d3e8">${esc(x.code)}</b>${x.test ? ' <span class="pill test">测试</span>' : ""}</td>
+    <td style="max-width:420px">${esc(x.title)}</td>
+    <td>${pill(x.status)}</td>
+    <td>${stateCell(x)}</td>
+    <td class="mono">${x.day || "—"}</td>
+    <td class="mono">${x.deadline || "—"}</td>
+  </tr>`).join("") || `<tr><td colspan="6" style="color:#7d8aa3;padding:18px">当前筛选无记录</td></tr>`;
+  const ss = subs(), ch = activeChals();
+  const miss = ch.filter(c => !ss.some(s => s.cid === c.id)).map(c => c.code);
+  el("caliberAlert").innerHTML =
+    `<b>口径提示</b>：本表按「每挑战最新一条提交」呈现，共 ${r.length} 行（筛选后）。当前范围内未提交的挑战：${miss.length ? miss.join("、") : "无"}。` +
+    `待终审年龄按提交日与快照日 ${SNAP} 的自然日差计算，非平台侧 SLA。`;
+}
+
+document.querySelectorAll("#scopeSeg button").forEach(b => b.onclick = () => {
+  scope = b.dataset.scope;
+  document.querySelectorAll("#scopeSeg button").forEach(x => x.classList.toggle("on", x === b));
+  render();
+});
+document.querySelectorAll("#filterSeg button").forEach(b => b.onclick = () => {
+  filter = b.dataset.f;
+  document.querySelectorAll("#filterSeg button").forEach(x => x.classList.toggle("on", x === b));
+  renderTable();
+});
+document.querySelectorAll("#tbl th").forEach(th => th.onclick = () => {
+  const k = th.dataset.sort;
+  sortDir = (sortKey === k) ? -sortDir : 1;
+  sortKey = k;
+  renderTable();
+});
+
+render();
+</script>
+</body>
+</html>
